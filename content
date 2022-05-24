@@ -1,0 +1,29 @@
+{% if product.description.size > 700 %}
+  <div class="product-description-short">
+  {{ product.description | truncate: 500, ". . . " }}<a class="readmore" href="#">Show More &#62;</a>
+  </div>
+  <div style="display:none;" class="product-description-full">
+  {{ product.description }}
+  <br><a class="readless" href="#">&#60; Show Less</a>
+  </div>
+  {% else %}
+    {{ product.description }}
+{% endif %} 
+
+
+<script>
+$('.readmore').click(function (event) {
+  event.preventDefault();
+  var descriptionFull = document.querySelector('.product-description-full');
+  descriptionFull.style.display = 'block';
+  var descriptionShort = document.querySelector('.product-description-short');
+  descriptionShort.style.display = 'none';
+});
+$('.readless').click(function (event) {
+  event.preventDefault();
+  var descriptionFull = document.querySelector('.product-description-full');
+  descriptionFull.style.display = 'none';
+  var descriptionShort = document.querySelector('.product-description-short');
+  descriptionShort.style.display = 'block';
+});  
+</script>
