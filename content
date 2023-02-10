@@ -1,19 +1,33 @@
+<!--        Product-Description    -->
 {% if product.description.size > 700 %}
-  <div class="product-description-short">
-  {{ product.description | truncate: 500, ". . . " }}<a class="readmore" href="#">Show More &#62;</a>
-  </div>
-  <div style="display:none;" class="product-description-full">
-  {{ product.description }}
-  <br><a class="readless" href="#">&#60; Show Less</a>
-  </div>
-  {% else %}
-    {{ product.description }}
-{% endif %} 
+<div id="temp_div" class="product-description-short product__description rte quick-add-hidden">
+{{ product.description | strip_html | truncate: 500 }}  
+</div> 
+<div style="display:none;" class="product__description product-description-full">
+{{ product.description | strip_html }}
+<br><a class="readless" href="#"> Show Less</a>
+</div>
+{% else %}
+<div class="full-description">
+{{ product.description }}
+</div>
+{% endif %}
+<!--        Product-Description    -->
 
 
 <script>
+var maxL = 417;
+var text = $('.product-description-short').text();
+  console.log("Length_hcgvhjfdhj"+'.product-description-short'.length);
+if(text.length > maxL) {
+var begin = text.substr(0, maxL),
+end = text.substr(maxL);
+$('.product-description-short').html(begin)
+.append($('<a class="readmore"/>').attr('href', '#').html('Show More...'))
+}
 $('.readmore').click(function (event) {
   event.preventDefault();
+  console.log("Description Length"+text.length);
   var descriptionFull = document.querySelector('.product-description-full');
   descriptionFull.style.display = 'block';
   var descriptionShort = document.querySelector('.product-description-short');
@@ -25,5 +39,5 @@ $('.readless').click(function (event) {
   descriptionFull.style.display = 'none';
   var descriptionShort = document.querySelector('.product-description-short');
   descriptionShort.style.display = 'block';
-});  
+}); 
 </script>
